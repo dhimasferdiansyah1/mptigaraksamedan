@@ -63,7 +63,7 @@ export async function getCustomerUniqe(id: string) {
 export async function updateCustomer(id: string, formData: FormData) {
   const values = Object.fromEntries(formData.entries());
   try {
-    const updatedCustomer = await prisma.customer.update({
+    await prisma.customer.update({
       where: {
         id,
       },
@@ -72,15 +72,10 @@ export async function updateCustomer(id: string, formData: FormData) {
       },
     });
     // Return a success message and the updated customer object
-    return {
-      success: true,
-      message: "Customer updated successfully",
-      customer: updatedCustomer,
-    };
   } catch (error) {
     // Return a failure message and the error object
     console.error(error);
   }
-  revalidateTag("customer");
+  revalidatePath("/dashboard/customer");
   redirect("/dashboard/customer"); // Navigate to the new post page
 }

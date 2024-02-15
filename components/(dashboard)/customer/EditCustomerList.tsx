@@ -24,8 +24,7 @@ import { z } from "zod";
 import { updateCustomer } from "@/app/(dashboard)/dashboard/customer/action";
 import { Customer } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import { startTransition } from "react";
-import { toast, useToast } from "@/components/ui/use-toast";
+import { toast } from "@/components/ui/use-toast";
 import { formatTimeAndDateIsoFetch } from "@/lib/utils";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
@@ -75,9 +74,6 @@ export default function EditCustomerList({ customer }: { customer: Customer }) {
         variant: "destructive",
       });
     }
-    const url = "/dashboard/customer";
-    startTransition(() => router.push(url));
-    startTransition(() => router.refresh());
   };
 
   return (
