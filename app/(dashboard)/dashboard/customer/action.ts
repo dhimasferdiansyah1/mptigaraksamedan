@@ -1,9 +1,8 @@
 "use server";
 import prisma from "@/lib/db";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import fs from "fs";
-import { customerSchema } from "@/lib/validations";
-import { z } from "zod";
+import { redirect } from "next/navigation";
 
 export async function getAllCustomer() {
   const response = await prisma.customer.findMany({
@@ -73,7 +72,6 @@ export async function updateCustomer(id: string, formData: FormData) {
       },
     });
     // Return a success message and the updated customer object
-    revalidatePath("/dashboard/customers");
     return {
       success: true,
       message: "Customer updated successfully",
@@ -83,4 +81,6 @@ export async function updateCustomer(id: string, formData: FormData) {
     // Return a failure message and the error object
     console.error(error);
   }
+  revalidateTag("customer");
+  redirect(`/post/${id}`); // Navigate to the new post page
 }

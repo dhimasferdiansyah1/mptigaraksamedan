@@ -29,7 +29,6 @@ import { toast, useToast } from "@/components/ui/use-toast";
 import { formatTimeAndDateIsoFetch } from "@/lib/utils";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
-import { revalidatePath } from "next/cache";
 
 export default function EditCustomerList({ customer }: { customer: Customer }) {
   const form = useForm<z.infer<typeof customerSchema>>({
@@ -76,7 +75,6 @@ export default function EditCustomerList({ customer }: { customer: Customer }) {
         variant: "destructive",
       });
     }
-    revalidatePath("/dashboard/customers");
     const url = "/dashboard/customer";
     startTransition(() => router.push(url));
     startTransition(() => router.refresh());
