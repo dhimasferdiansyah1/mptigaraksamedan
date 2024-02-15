@@ -82,5 +82,5 @@ export async function updateCustomer(id: string, formData: FormData) {
     console.error(error);
   }
   revalidateTag("customer");
-  redirect(`/post/${id}`); // Navigate to the new post page
+  redirect("/dashboard/customer"); // Navigate to the new post page
 }
