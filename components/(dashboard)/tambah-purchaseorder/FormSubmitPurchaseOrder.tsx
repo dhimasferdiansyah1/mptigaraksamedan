@@ -226,7 +226,7 @@ export default function FormSubmitPurchaseOrder() {
               control={form.control}
               render={({ field: { value, ...fieldValues } }) => (
                 <FormItem>
-                  <Label htmlFor="fileUpload">
+                  <Label>
                     Foto Berkas Purchase Order{" "}
                     <span className="text-muted-foreground">
                       (Max file: 8MB)
@@ -234,6 +234,7 @@ export default function FormSubmitPurchaseOrder() {
                   </Label>
                   <FormControl>
                     <UploadDropzone
+                      config={{ mode: "auto" }}
                       appearance={{
                         button: {
                           background: "black",
