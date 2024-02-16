@@ -21,10 +21,8 @@ import {
 import { Input } from "@/components/ui/input";
 import LoadingButton from "@/components/LoadingButton";
 import { createCustomer } from "@/app/(dashboard)/dashboard/tambah-customer/action";
-import { useRouter } from "next/navigation";
-import { startTransition, useTransition } from "react";
 import { formatTimeAndDateIsoFetch } from "@/lib/utils";
-import { toast, useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function FormSubmitCustomer() {
   const form = useForm<z.infer<typeof customerSchema>>({
@@ -43,8 +41,7 @@ export default function FormSubmitCustomer() {
   } = form;
 
   const { toast } = useToast();
-  const router = useRouter();
-  const [isPending, startTransition] = useTransition();
+
   const handleSubmit = async (values: z.infer<typeof customerSchema>) => {
     console.log(values);
     const formData = new FormData();
@@ -68,9 +65,6 @@ export default function FormSubmitCustomer() {
         variant: "destructive",
       });
     }
-    const url = "/dashboard/customer";
-    startTransition(() => router.push(url));
-    startTransition(() => router.refresh());
   };
   return (
     <Form {...form}>
