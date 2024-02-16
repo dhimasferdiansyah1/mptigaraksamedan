@@ -23,11 +23,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { updateCustomer } from "@/app/(dashboard)/dashboard/customer/action";
 import { Customer } from "@prisma/client";
-import { useRouter } from "next/navigation";
 import { toast } from "@/components/ui/use-toast";
 import { formatTimeAndDateIsoFetch } from "@/lib/utils";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export default function EditCustomerList({ customer }: { customer: Customer }) {
   const form = useForm<z.infer<typeof customerSchema>>({
@@ -44,8 +44,6 @@ export default function EditCustomerList({ customer }: { customer: Customer }) {
   const {
     formState: { isSubmitting },
   } = form;
-
-  const router = useRouter();
 
   const handleUpdateCustomer = async (
     values: z.infer<typeof customerSchema>,
@@ -96,77 +94,83 @@ export default function EditCustomerList({ customer }: { customer: Customer }) {
               diubah.
             </CardDescription>
           </CardHeader>
-          <FormField
-            name="customer_name"
-            control={form.control}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Nama Customer</FormLabel>
-                <FormControl>
-                  <Input {...field} placeholder="Nama Customer..." />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            name="account"
-            control={form.control}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Kode Account Customer</FormLabel>
-                <FormControl>
-                  <Input {...field} placeholder="Kode Account Customer..." />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            name="alamat"
-            control={form.control}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Alamat</FormLabel>
-                <FormControl>
-                  <Input {...field} placeholder="Alamat..." />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            name="no_telp"
-            control={form.control}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  Nomor telepon{" "}
-                  <span className="text-muted-foreground">(Optional)</span>
-                </FormLabel>
-                <FormControl>
-                  <Input {...field} type="tel" placeholder="Nomor telepon..." />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            name="email"
-            control={form.control}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  Email{" "}
-                  <span className="text-muted-foreground">(Optional)</span>
-                </FormLabel>
-                <FormControl>
-                  <Input {...field} type="email" placeholder="Email..." />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <Suspense fallback={<p>Loading...</p>}>
+            <FormField
+              name="customer_name"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Nama Customer</FormLabel>
+                  <FormControl>
+                    <Input {...field} placeholder="Nama Customer..." />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              name="account"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Kode Account Customer</FormLabel>
+                  <FormControl>
+                    <Input {...field} placeholder="Kode Account Customer..." />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              name="alamat"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Alamat</FormLabel>
+                  <FormControl>
+                    <Input {...field} placeholder="Alamat..." />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              name="no_telp"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    Nomor telepon{" "}
+                    <span className="text-muted-foreground">(Optional)</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      type="tel"
+                      placeholder="Nomor telepon..."
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              name="email"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    Email{" "}
+                    <span className="text-muted-foreground">(Optional)</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input {...field} type="email" placeholder="Email..." />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </Suspense>
           <LoadingButton
             loading={isSubmitting}
             className="w-full"
