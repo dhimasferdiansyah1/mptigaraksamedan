@@ -26,14 +26,8 @@ export const customerSchema = z.object({
 
 //Purchase Order
 const imagePurchaseOrderSchema = z
-  .custom<File>()
-  .refine((file) => !!file, "Silahkan memilih file gambar")
-  .refine((file) => {
-    return !file || (!!file && file.size < 10 * 1024 * 1024);
-  }, "Ukuran file tidak boleh lebih dari 10MB")
-  .refine((file) => {
-    return !file || (!!file && file.type.startsWith("image/"));
-  }, "File harus berupa gambar");
+  .string()
+  .refine((file) => !!file, "Silahkan memilih file gambar");
 
 const numericPurchaseOrderRequiredString = z
   .string()
@@ -49,7 +43,12 @@ export const purchaseOrderSchema = z.object({
   tgl_po: z.string({
     required_error: "Tanggal purchase order tidak boleh kosong",
   }),
-  foto_po: imagePurchaseOrderSchema,
+  foto_po: z.optional(
+    imagePurchaseOrderSchema.transform((file) => {
+      console.log("File:", file);
+      return file;
+    }),
+  ),
   status_po: z.string().refine((value) => {
     return value === "Berjalan" || value === "Selesai";
   }, "Status harus berupa Berjalan atau Selesai"),

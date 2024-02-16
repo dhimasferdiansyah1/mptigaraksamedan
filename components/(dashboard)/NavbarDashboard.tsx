@@ -28,8 +28,8 @@ const NavbarDashboard = () => {
   });
 
   const routes = [
+    { href: "/", label: "Landingpage" },
     { href: "/dashboard", label: "Dashboard" },
-    { href: "/profile", label: "Profile" },
     { href: "/dashboard/customer", label: "Customer" },
   ];
 
@@ -40,14 +40,14 @@ const NavbarDashboard = () => {
 
   return (
     <>
-      <div className="bg-gradient-to-t from-green-300 to-emerald-500 p-1 text-white"></div>
+      <div className="bg-zinc-950 p-1 text-white"></div>
       <nav className="sticky top-0 z-20 bg-white bg-opacity-70 p-3 backdrop-blur-md">
         <div className="mx-auto max-w-7xl">
           <div className="container">
             <div className="flex items-center justify-between">
               <div className="flex">
                 <Link
-                  href="/"
+                  href="/dashboard"
                   className="flex gap-2 font-bold duration-300 hover:text-muted-foreground hover:duration-300 lg:text-lg"
                 >
                   <Activity />
@@ -97,6 +97,8 @@ const NavbarDashboard = () => {
               </div>
               <div className="flex items-center lg:hidden">
                 <motion.button
+                  id="hamburgermenu"
+                  aria-label="hamburgermenu"
                   name="button"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.8 }}
@@ -133,7 +135,7 @@ const NavbarDashboard = () => {
                   <li className="flex flex-col gap-3">
                     {/* Master heading with bold text and chevron down */}
                     <Link
-                      href="/"
+                      href="/dashboard"
                       className="flex cursor-pointer items-center gap-2 text-lg font-bold text-zinc-950 hover:text-black dark:text-white"
                     >
                       <Activity />

@@ -27,24 +27,13 @@ export async function getAllData(id?: string) {
 
 export async function deletePurchaseOrder(id: string) {
   try {
-    const purchaseOrder = await prisma.purchaseOrder.findUnique({
-      where: {
-        id: id,
-      },
-      select: {
-        foto_po: true,
-      },
-    });
     // Setelah semua relasi dihapus, hapus data di tabel purchaseOrder
-    const deletedPurchaseOrder = await prisma.purchaseOrder.delete({
+    await prisma.purchaseOrder.delete({
       where: {
         id: id,
       },
     });
-    const imageDeletePath = "public" + purchaseOrder?.foto_po;
-    fs.unlinkSync(imageDeletePath);
     revalidatePath("/");
-    return deletedPurchaseOrder;
   } catch (error) {
     console.error(error);
     throw error;

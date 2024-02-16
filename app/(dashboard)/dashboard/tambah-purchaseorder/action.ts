@@ -17,25 +17,15 @@ export async function createPurchaseOrder(formData: FormData) {
   const nomorPurchaseOrderWithoutExt = nomorPurchaseOrder;
   const idFormat = uuidModified() + "-" + nomorPurchaseOrderWithoutExt;
 
-  // const name = foto_po?.name;
-
-  const nameWithoutExt = nomorPurchaseOrder;
-  const fileName =
-    uuidModified() + "-" + nameWithoutExt + "." + foto_po!.type.split("/")[1];
-  const imagePath = "/images/purchaseOrder/" + fileName;
-  const imageSavePath = "public/images/purchaseOrder/" + fileName;
-
-  const buffer = await foto_po!.arrayBuffer();
-  fs.writeFileSync(imageSavePath, Buffer.from(buffer));
 
   try {
-    const form = await prisma.purchaseOrder.create({
+    await prisma.purchaseOrder.create({
       data: {
         id: idFormat,
         customer_id,
         no_po,
         tgl_po,
-        foto_po: imagePath,
+        foto_po, // Convert File to string
         status_po,
 
         // Menambahkan data status serah dokumen
@@ -49,11 +39,11 @@ export async function createPurchaseOrder(formData: FormData) {
         },
       },
     });
-
-    revalidatePath("/");
-    return form;
   } catch (error) {
     console.error(error);
     throw error;
   }
+
+  revalidatePath("/dashboard");
+  redirect("/dashboard");
 }

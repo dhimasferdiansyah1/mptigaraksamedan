@@ -46,9 +46,16 @@ export default async function CustomerList() {
             <TableCell className="px-4 py-2 text-left font-medium">
               {index + 1}
             </TableCell>
-            <TableCell className="px-4 py-2">{item.account}</TableCell>
-            <TableCell className="px-4 py-2">{item.customer_name}</TableCell>
-            <TableCell className="px-4 py-2 sm:table-cell">
+            <TableCell aria-label="account customer" className="px-4 py-2">
+              {item.account}
+            </TableCell>
+            <TableCell aria-label="nama customer" className="px-4 py-2">
+              {item.customer_name}
+            </TableCell>
+            <TableCell
+              aria-label="alamat customer"
+              className="px-4 py-2 sm:table-cell"
+            >
               {item.alamat}
             </TableCell>
             <TableCell className="px-4 py-2">{item.no_telp}</TableCell>

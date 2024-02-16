@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { CalendarIcon } from "@radix-ui/react-icons";
 import { format } from "date-fns";
-import { cn, formatDateIsoFetch, formatTimeAndDateIsoFetch } from "@/lib/utils";
+import { cn, formatTimeAndDateIsoFetch } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -33,9 +33,11 @@ import {
 } from "@/components/ui/card";
 import LoadingButton from "@/components/LoadingButton";
 import { createPurchaseOrder } from "@/app/(dashboard)/dashboard/tambah-purchaseorder/action";
-import { useRouter } from "next/navigation";
-import { useTransition } from "react";
 import { useToast } from "@/components/ui/use-toast";
+import { UploadDropzone } from "@/utils/uploadthings";
+import { useState } from "react";
+import Image from "next/image";
+import { Pencil } from "lucide-react";
 
 export default function FormSubmitPurchaseOrder() {
   const form = useForm<z.infer<typeof purchaseOrderSchema>>({
@@ -50,9 +52,15 @@ export default function FormSubmitPurchaseOrder() {
       user: "Admin",
     },
   });
+
   const { toast } = useToast();
-  const router = useRouter();
-  const [isPending, startTransition] = useTransition();
+
+  const [imageUrl, setImageUrl] = useState("");
+
+  const [showP, setShowP] = useState(true);
+  const hideP = () => {
+    setShowP(false);
+  };
 
   const {
     formState: { isSubmitting },
@@ -60,12 +68,12 @@ export default function FormSubmitPurchaseOrder() {
 
   const handleSubmit = async (values: z.infer<typeof purchaseOrderSchema>) => {
     const formData = new FormData();
-
+    console.log(values);
     Object.entries(values).forEach(([key, value]) => {
       if (value) {
-        if (value instanceof Date) {
-          formData.append(key, value.toISOString());
-        } else if (value instanceof File || typeof value === "string") {
+        if (value) {
+          formData.append(key, value);
+        } else if (value || typeof value === "string") {
           formData.append(key, value);
         }
       }
@@ -87,11 +95,6 @@ export default function FormSubmitPurchaseOrder() {
     }
     const { reset } = form;
     reset();
-    const fileInput = document.getElementById("fileUpload") as HTMLInputElement;
-    fileInput.value = "";
-    const url = "/dashboard/";
-    startTransition(() => router.push(url));
-    startTransition(() => router.refresh());
   };
 
   return (
@@ -169,7 +172,7 @@ export default function FormSubmitPurchaseOrder() {
                           {field.value ? (
                             format(field.value, "PPP")
                           ) : (
-                            <span>Pilih tanggal purchase order</span>
+                            <span>Tanggal purchase order</span>
                           )}
                           <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                         </Button>
@@ -193,34 +196,74 @@ export default function FormSubmitPurchaseOrder() {
               </FormItem>
             )}
           />
-          <FormField
-            name="foto_po"
-            control={form.control}
-            render={({ field: { value, ...fieldValues } }) => (
-              <FormItem>
-                <Label htmlFor="fileUpload">
-                  Foto Berkas Purchase Order{" "}
-                  <span className="text-muted-foreground">
-                    (Max file: 10MB)
-                  </span>
-                </Label>
-                <FormControl>
-                  <Input
-                    id="fileUpload"
-                    type="file"
-                    placeholder="Foto Berkas Purchase Order..."
-                    accept="image/png, image/jpeg"
-                    {...fieldValues}
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      fieldValues.onChange(file);
-                    }}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          {imageUrl && (
+            <Button
+              variant="secondary"
+              onClick={() => setImageUrl("")}
+              type="button"
+              className="flex w-full gap-2"
+            >
+              <Pencil className="h-5 w-5" />
+              <span>Ganti foto</span>
+            </Button>
+          )}
+          {imageUrl ? (
+            <div className="h-auto w-full">
+              {showP ? ( // Jika nilai showP adalah true
+                <p className="">Loading...</p> // Tampilkan <p>
+              ) : null}
+              <Image
+                src={imageUrl}
+                alt="Foto purchase order"
+                width={512}
+                height={512}
+                className="h-auto w-full rounded border p-2"
+              />
+            </div>
+          ) : (
+            <FormField
+              name="foto_po"
+              control={form.control}
+              render={({ field: { value, ...fieldValues } }) => (
+                <FormItem>
+                  <Label htmlFor="fileUpload">
+                    Foto Berkas Purchase Order{" "}
+                    <span className="text-muted-foreground">
+                      (Max file: 8MB)
+                    </span>
+                  </Label>
+                  <FormControl>
+                    <UploadDropzone
+                      appearance={{
+                        button: {
+                          background: "black",
+                        },
+                        container: {
+                          display: "flex",
+                          color: "black",
+                        },
+                        label: {
+                          color: "black",
+                        },
+                      }}
+                      endpoint="imageUploader"
+                      onClientUploadComplete={(res) => {
+                        setShowP(true);
+                        setTimeout(hideP, 2000);
+
+                        setImageUrl(res[0].url);
+                        form.setValue("foto_po", res[0].url);
+                      }}
+                      onUploadError={(error: Error) => {
+                        alert(`ERROR! ${error.message}`);
+                      }}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
           <FormField
             name="status_po"
             control={form.control}

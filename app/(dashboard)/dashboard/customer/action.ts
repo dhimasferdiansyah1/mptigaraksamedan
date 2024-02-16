@@ -1,7 +1,6 @@
 "use server";
 import prisma from "@/lib/db";
-import { revalidatePath, revalidateTag } from "next/cache";
-import fs from "fs";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 export async function getAllCustomer() {
@@ -10,45 +9,26 @@ export async function getAllCustomer() {
       createdAt: "desc",
     },
   });
-  const customer = response;
-  return customer;
+  return response;
 }
 
 export async function deleteCustomer(id: string) {
   try {
     // Find all purchase orders related to the customer
-    const purchaseOrders = await prisma.purchaseOrder.findMany({
-      where: {
-        customer_id: id,
-      },
-      select: {
-        foto_po: true,
-      },
-    });
     // Delete the customer and all related purchase orders and models
-    const deletedCustomer = await prisma.customer.delete({
+    await prisma.customer.delete({
       where: {
         id: id,
       },
     });
     // Delete all photos related to the purchase orders
-    await Promise.all(
-      purchaseOrders.map((po) => {
-        // Check if the purchase order and the photo exist
-        if (po && po.foto_po) {
-          // Construct the image path
-          const imageDeletePath = "public" + po.foto_po;
-          fs.unlinkSync(imageDeletePath);
-        }
-      }),
-    );
     // Revalidate the data on the customer page
-    revalidatePath("/dashboard/customer");
-    return deletedCustomer;
   } catch (error) {
     console.error(error);
     throw error;
   }
+  revalidatePath("/dashboard/customer");
+  redirect("/dashboard/customer");
 }
 
 export async function getCustomerUniqe(id: string) {

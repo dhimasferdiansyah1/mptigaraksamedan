@@ -3,6 +3,7 @@ import prisma from "@/lib/db";
 import { customerSchema } from "@/lib/validations";
 import { uuidModified } from "@/lib/utils";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export async function createCustomer(formData: FormData) {
   const values = Object.fromEntries(formData.entries());
@@ -13,7 +14,7 @@ export async function createCustomer(formData: FormData) {
   const kodeAccountCustomerWithoutExt = kodeAccountCustomer;
   const idFormat = uuidModified() + "-" + kodeAccountCustomerWithoutExt;
   try {
-    const form = await prisma.customer.create({
+    await prisma.customer.create({
       data: {
         id: idFormat,
         customer_name,
@@ -23,10 +24,10 @@ export async function createCustomer(formData: FormData) {
         email,
       },
     });
-    revalidatePath("/");
-    return form;
   } catch (error) {
     console.error(error);
     throw error;
   }
+  revalidatePath("/dashboard/customer");
+  redirect("/dashboard/customer");
 }

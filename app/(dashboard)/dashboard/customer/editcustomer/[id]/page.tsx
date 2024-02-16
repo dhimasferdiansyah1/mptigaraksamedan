@@ -19,9 +19,7 @@ export default async function updateCustomerPage({
         <div className="flex flex-col items-center justify-center">
           <EditCustomerList customer={customer} />
         </div>
-        ;
       </div>
-      ;
     </div>
   );
 }
