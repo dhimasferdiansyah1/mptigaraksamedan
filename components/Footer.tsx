@@ -5,7 +5,7 @@ export default function Footer() {
     return new Date().getFullYear();
   };
   return (
-    <div className="bg-white px-4 py-8 text-sm text-muted-foreground shadow-xl lg:text-base lg:font-medium">
+    <div className=" px-4 py-8 text-sm text-muted-foreground lg:text-base lg:font-medium">
       <div className="mx-auto max-w-7xl">
         <h1>
           Built by

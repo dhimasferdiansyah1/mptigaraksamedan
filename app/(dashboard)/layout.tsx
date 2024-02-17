@@ -4,6 +4,7 @@ import "@/app/(home)/globals.css";
 import Footer from "@/components/Footer";
 import { Inter } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const inter = Inter({ subsets: ["latin"], weight: "400", display: "swap" });
 
@@ -22,11 +23,18 @@ export default function DashboardLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-backgroundwhite`}>
-        <NavbarDashboard />
-        <div className="min-h-screen">{children}</div>
-        <Toaster />
-        <Footer />
+      <body className={`${inter.className}`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <NavbarDashboard />
+          <div className="min-h-screen">{children}</div>
+          <Toaster />
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

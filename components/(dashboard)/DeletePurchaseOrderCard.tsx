@@ -26,7 +26,9 @@ export default function DeletePurchaseOrderCard({ id }: { id: string }) {
 
   return (
     <form>
-      <Button onClick={handleDelete}>Lanjut</Button>
+      <Button onClick={handleDelete} className="w-full">
+        Lanjut
+      </Button>
     </form>
   );
 }

@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/popover";
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -35,7 +34,7 @@ export const PurchaseOrderCard = async ({ id }: { id?: string }) => {
             fallback={<SkeletonReloadIcon className="h-10 w-10" />}
             key={po.id}
           >
-            <Card className="flex flex-col p-4">
+            <Card className="flex flex-col p-4 dark:bg-zinc-900">
               <div className="flex-col">
                 <div className="flex flex-col gap-1">
                   <div className="lg: mb-3 flex flex-col justify-between gap-2 lg:w-[370px] lg:flex-row lg:gap-0">
@@ -169,10 +168,10 @@ export const PurchaseOrderCard = async ({ id }: { id?: string }) => {
                         <AlertDialogTitle>
                           Apakah kamu yakin ingin menghapus purchase order{" "}
                           <span className="text-destructive">{po.no_po}</span>{" "}
-                          dengan kode account customer{" "}
+                          dengan account customer{" "}
                           <span className="text-muted-foreground">
-                            ({po.customer.account})
-                          </span>{" "}
+                            {po.customer.customer_name} ({po.customer.account})
+                          </span>
                           ?
                         </AlertDialogTitle>
                         <AlertDialogDescription>

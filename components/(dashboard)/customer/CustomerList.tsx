@@ -23,6 +23,7 @@ import {
 import DeleteCustomerList from "./DeleteCustomerList";
 import { Pencil, Trash2 } from "lucide-react";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default async function CustomerList() {
   const customerList = await getAllCustomer();
@@ -64,13 +65,17 @@ export default async function CustomerList() {
               <div className="flex gap-4">
                 <Link
                   href={`/dashboard/customer/editcustomer/${item.id}`}
-                  className="flex gap-2"
+                  className="flex gap-2 rounded-md bg-muted px-3 py-2"
                 >
+                  Edit
                   <Pencil className="hover:text-primary-400 h-4 w-4 cursor-pointer text-primary transition-colors duration-300 ease-in-out hover:text-muted-foreground" />
                 </Link>
                 <AlertDialog>
-                  <AlertDialogTrigger name="delete">
-                    <Trash2 className="h-4 w-4 cursor-pointer text-destructive transition-colors duration-300 ease-in-out hover:text-red-400" />
+                  <AlertDialogTrigger
+                    name="delete"
+                    className="rounded-md bg-destructive p-2"
+                  >
+                    <Trash2 className="h-4 w-4 cursor-pointer text-white transition-colors duration-300 ease-in-out hover:text-red-200" />
                   </AlertDialogTrigger>
                   <AlertDialogContent>
                     <AlertDialogHeader>

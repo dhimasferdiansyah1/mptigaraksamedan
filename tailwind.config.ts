@@ -22,6 +22,7 @@ export default withUt({
     },
     extend: {
       colors: {
+        tigaraksa: "#4FAA41",
         backgroundwhite: "#F4F4F4",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

@@ -50,7 +50,7 @@ export default function page() {
                     <Skeleton className="h-[100px] w-[100px] rounded-md" />
                   }
                 >
-                  <div className=" flex items-center justify-center rounded-md border border-zinc-300 p-4">
+                  <div className="flex items-center justify-center rounded-md border p-4 shadow-sm dark:bg-zinc-900">
                     <Image
                       src={image.src}
                       alt={image.alt}

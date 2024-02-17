@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import LoadingButton from "@/components/LoadingButton";
-import { createCustomer } from "@/app/(dashboard)/dashboard/tambah-customer/action";
+import { createCustomer } from "@/app/(dashboard)/dashboard/customer/tambahcustomer/action";
 import { formatTimeAndDateIsoFetch } from "@/lib/utils";
 import { useToast } from "@/components/ui/use-toast";
 
@@ -72,7 +72,7 @@ export default function FormSubmitCustomer() {
         onSubmit={form.handleSubmit(handleSubmit)}
         className="my-8 w-full sm:px-20 md:px-32 lg:max-w-3xl"
       >
-        <Card className="space-y-4 p-8">
+        <Card className="space-y-4  p-8 dark:bg-zinc-900">
           <CardHeader className="-m-6 mb-2">
             <CardTitle>Tambah Customer</CardTitle>
             <CardDescription>
