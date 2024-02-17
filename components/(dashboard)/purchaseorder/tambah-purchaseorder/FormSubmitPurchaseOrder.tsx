@@ -32,7 +32,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import LoadingButton from "@/components/LoadingButton";
-import { createPurchaseOrder } from "@/app/(dashboard)/dashboard/tambah-purchaseorder/action";
+import { createPurchaseOrder } from "@/app/(dashboard)/dashboard/purchaseorder/tambahpurchaseorder/action";
 import { useToast } from "@/components/ui/use-toast";
 import { UploadDropzone } from "@/utils/uploadthings";
 import { useState } from "react";
@@ -244,7 +244,7 @@ export default function FormSubmitPurchaseOrder() {
                           color: "black",
                         },
                         label: {
-                          color: "black",
+                          color: "GrayText",
                         },
                       }}
                       endpoint="imageUploader"

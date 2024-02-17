@@ -1,4 +1,4 @@
-import FormSubmitCustomer from "@/components/(dashboard)/tambah-customer/FormSubmitCustomer";
+import FormSubmitCustomer from "@/components/(dashboard)/customer/tambah-customer/FormSubmitCustomer";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Suspense } from "react";
 

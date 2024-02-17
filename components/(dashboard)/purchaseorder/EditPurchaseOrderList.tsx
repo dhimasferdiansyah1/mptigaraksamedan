@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { customerSchema } from "@/lib/validations";
+import { customerSchema, purchaseOrderSchema } from "@/lib/validations";
 import {
   Form,
   FormControl,
@@ -21,23 +21,28 @@ import LoadingButton from "@/components/LoadingButton";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { updateCustomer } from "@/app/(dashboard)/dashboard/customer/action";
-import { Customer } from "@prisma/client";
+import { updatePurchaseOrder } from "@/app/(dashboard)/dashboard/purchaseorder/action";
+import { PurchaseOrder } from "@prisma/client";
 import { toast } from "@/components/ui/use-toast";
 import { formatTimeAndDateIsoFetch } from "@/lib/utils";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 
-export default function EditCustomerList({ customer }: { customer: Customer }) {
-  const form = useForm<z.infer<typeof customerSchema>>({
-    resolver: zodResolver(customerSchema),
+export default function EditPurchaseOrderList({
+  purchaseOrder,
+}: {
+  purchaseOrder: PurchaseOrder;
+}) {
+  const form = useForm<z.infer<typeof purchaseOrderSchema>>({
+    resolver: zodResolver(purchaseOrderSchema),
     defaultValues: {
-      customer_name: customer.customer_name,
-      account: customer.account,
-      alamat: customer.alamat,
-      no_telp: customer.no_telp || undefined,
-      email: customer.email || undefined,
+      no_po: purchaseOrder.no_po,
+      tgl_po: purchaseOrder.tgl_po
+        ? purchaseOrder.tgl_po.toISOString()
+        : undefined,
+      status_po: purchaseOrder.status_po,
+      foto_po: purchaseOrder.foto_po || undefined,
     },
   });
 
@@ -45,11 +50,11 @@ export default function EditCustomerList({ customer }: { customer: Customer }) {
     formState: { isSubmitting },
   } = form;
 
-  const handleUpdateCustomer = async (
-    values: z.infer<typeof customerSchema>,
+  const handleUpdatePurchaseOrder = async (
+    values: z.infer<typeof purchaseOrderSchema>,
   ) => {
     const formData = new FormData();
-    const id = customer.id; // Replace with the actual ID of the customer
+    const id = purchaseOrder.id; // Replace with the actual ID of the customer
 
     Object.entries(values).forEach(([key, value]) => {
       if (value) {
@@ -57,9 +62,9 @@ export default function EditCustomerList({ customer }: { customer: Customer }) {
       }
     });
     try {
-      await updateCustomer(id, formData);
+      await updatePurchaseOrder(id, formData);
       toast({
-        title: "Customer berhasil diedit",
+        title: "Purchase order berhasil diedit",
         description: formatTimeAndDateIsoFetch(new Date().toString()),
         variant: "default",
       });
@@ -67,7 +72,7 @@ export default function EditCustomerList({ customer }: { customer: Customer }) {
     } catch (error) {
       console.log(error);
       toast({
-        title: "Customer gagal diedit",
+        title: "Purchase order gagal diedit",
         description: formatTimeAndDateIsoFetch(new Date().toString()),
         variant: "destructive",
       });
@@ -77,30 +82,29 @@ export default function EditCustomerList({ customer }: { customer: Customer }) {
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(handleUpdateCustomer)}
+        onSubmit={form.handleSubmit(handleUpdatePurchaseOrder)}
         className="my-8 w-full sm:px-20 md:px-32 lg:max-w-3xl"
       >
         <Card className="space-y-4 p-8 dark:bg-zinc-900">
-          <Link href="/dashboard/customer">
+          <Link href="/dashboard/purchaseorder">
             <Button variant="secondary" className="flex gap-2">
               <ChevronLeft className="h-5 w-5" />
               Kembali
             </Button>
           </Link>
           <CardHeader className="-m-6 mb-2">
-            <CardTitle>Edit Customer</CardTitle>
+            <CardTitle>Edit Purchase Order</CardTitle>
             <CardDescription>
-              Silahkan mengubah data customer key account modern yang ingin
-              diubah.
+              Silahkan mengubah data purchase order yang ingin diubah.
             </CardDescription>
           </CardHeader>
           <Suspense fallback={<p>Loading...</p>}>
             <FormField
-              name="customer_name"
+              name="no_po"
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Nama Customer</FormLabel>
+                  <FormLabel>No Purchase Order</FormLabel>
                   <FormControl>
                     <Input {...field} placeholder="Nama Customer..." />
                   </FormControl>
@@ -109,11 +113,11 @@ export default function EditCustomerList({ customer }: { customer: Customer }) {
               )}
             />
             <FormField
-              name="account"
+              name="tgl_po"
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Kode Account Customer</FormLabel>
+                  <FormLabel>Tanggal Purchase Order</FormLabel>
                   <FormControl>
                     <Input {...field} placeholder="Kode Account Customer..." />
                   </FormControl>
@@ -122,49 +126,34 @@ export default function EditCustomerList({ customer }: { customer: Customer }) {
               )}
             />
             <FormField
-              name="alamat"
+              name="foto_po"
               control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Alamat</FormLabel>
+                  <FormLabel>Foto Purchase Order</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="Alamat..." />
+                    <Input {...field} placeholder="Foto Purchase Order" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <FormField
-              name="no_telp"
+              name="status_po"
               control={form.control}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    Nomor telepon{" "}
+                    Status Purchase Order{" "}
                     <span className="text-muted-foreground">(Optional)</span>
                   </FormLabel>
                   <FormControl>
                     <Input
                       {...field}
                       type="tel"
-                      placeholder="Nomor telepon..."
+                      placeholder="Status Purchase Order..."
+                      disabled
                     />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              name="email"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    Email{" "}
-                    <span className="text-muted-foreground">(Optional)</span>
-                  </FormLabel>
-                  <FormControl>
-                    <Input {...field} type="email" placeholder="Email..." />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

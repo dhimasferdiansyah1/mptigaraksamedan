@@ -17,7 +17,6 @@ export async function createPurchaseOrder(formData: FormData) {
   const nomorPurchaseOrderWithoutExt = nomorPurchaseOrder;
   const idFormat = uuidModified() + "-" + nomorPurchaseOrderWithoutExt;
 
-
   try {
     await prisma.purchaseOrder.create({
       data: {
@@ -44,6 +43,6 @@ export async function createPurchaseOrder(formData: FormData) {
     throw error;
   }
 
-  revalidatePath("/dashboard");
-  redirect("/dashboard");
+  revalidatePath("/dashboard/purchaseorder");
+  redirect("/dashboard/purchaseorder");
 }

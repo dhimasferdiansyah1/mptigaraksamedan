@@ -1,4 +1,4 @@
-import FormSubmitPurchaseOrder from "@/components/(dashboard)/tambah-purchaseorder/FormSubmitPurchaseOrder";
+import FormSubmitPurchaseOrder from "@/components/(dashboard)/purchaseorder/tambah-purchaseorder/FormSubmitPurchaseOrder";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Suspense } from "react";
 

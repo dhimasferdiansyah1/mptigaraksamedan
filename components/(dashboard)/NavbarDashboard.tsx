@@ -33,7 +33,6 @@ const NavbarDashboard = () => {
   const mainRoutes = [
     { href: "/", label: "Landingpage" },
     { href: "/dashboard", label: "Dashboard" },
-    { href: "https://www.tigaraksa.co.id/", label: "Perusahaan" },
   ];
 
   const secondaryRoutes = [
@@ -109,6 +108,13 @@ const NavbarDashboard = () => {
                     {route.label}
                   </Link>
                 ))}
+                <a
+                  href="https://www.tigaraksa.co.id/"
+                  target="_blank"
+                  className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                >
+                  Perusahaan
+                </a>
                 <ModeToggle />
               </div>
               <div className="flex items-center lg:hidden">
