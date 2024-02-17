@@ -51,7 +51,7 @@ export const PurchaseOrderCard = async ({ id }: { id?: string }) => {
                         fallback={<Skeleton className="h-[50px] w-[200px]" />}
                       >
                         <Popover>
-                          <PopoverTrigger className="w-fit" name="info">
+                          <PopoverTrigger className="w-fit" aria-label="info">
                             <Info className="h-5 w-5 cursor-pointer text-muted-foreground hover:text-primary" />
                           </PopoverTrigger>
                           <PopoverContent className="z-10 mx-2 w-[320px] lg:mx-0 lg:w-[500px]">
@@ -160,7 +160,7 @@ export const PurchaseOrderCard = async ({ id }: { id?: string }) => {
                 <div className="mt-4 flex items-center justify-end gap-4">
                   <SquarePen className="h-8 w-8 cursor-pointer text-primary" />
                   <AlertDialog>
-                    <AlertDialogTrigger name="delete">
+                    <AlertDialogTrigger name="delete" aria-label="delete">
                       <Trash2 className="h-8 w-8 cursor-pointer text-destructive transition-colors duration-300 ease-in-out hover:text-red-400" />
                     </AlertDialogTrigger>
                     <AlertDialogContent>
