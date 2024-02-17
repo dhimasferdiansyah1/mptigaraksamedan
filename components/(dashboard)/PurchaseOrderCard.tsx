@@ -92,7 +92,7 @@ export const PurchaseOrderCard = async ({ id }: { id?: string }) => {
                     </div>
 
                     <span
-                      className={`flex w-fit items-center rounded-full p-[2px] px-[10px] text-sm lg:w-auto ${po.status_po === "Berjalan" ? "bg-yellow-300 text-yellow-800 hover:bg-yellow-200" : po.status_po === "Selesai" ? "bg-green-300 text-white hover:bg-green-200" : ""}`}
+                      className={`flex w-fit items-center rounded-full p-[2px] px-[10px] text-sm lg:w-auto ${po.status_po === "Berjalan" ? "bg-yellow-300/80 text-yellow-950 hover:bg-yellow-200 dark:bg-yellow-300/30 dark:text-yellow-100" : po.status_po === "Selesai" ? "bg-green-300 text-white hover:bg-green-200" : ""}`}
                     >
                       {po.status_po}
                     </span>
@@ -116,7 +116,9 @@ export const PurchaseOrderCard = async ({ id }: { id?: string }) => {
                         <span>:</span>
                         <div>
                           {po.delivery_note?.no_dn || (
-                            <p className="text-destructive">Belum memiliki</p>
+                            <p className="text-destructive dark:text-red-400">
+                              Belum memiliki
+                            </p>
                           )}
                         </div>
                       </div>
@@ -132,7 +134,9 @@ export const PurchaseOrderCard = async ({ id }: { id?: string }) => {
                         <span>:</span>
                         <div>
                           {po.faktur?.tgl_jt.toString() ?? (
-                            <p className="text-destructive">Belum memiliki</p>
+                            <p className="text-destructive dark:text-red-400">
+                              Belum memiliki
+                            </p>
                           )}
                         </div>
                       </div>
@@ -161,7 +165,7 @@ export const PurchaseOrderCard = async ({ id }: { id?: string }) => {
                   <SquarePen className="h-8 w-8 cursor-pointer text-primary" />
                   <AlertDialog>
                     <AlertDialogTrigger name="delete" aria-label="delete">
-                      <Trash2 className="h-8 w-8 cursor-pointer text-destructive transition-colors duration-300 ease-in-out hover:text-red-400" />
+                      <Trash2 className="h-8 w-8 cursor-pointer text-destructive transition-colors duration-300 ease-in-out hover:text-red-400 dark:text-red-400 dark:hover:text-red-300" />
                     </AlertDialogTrigger>
                     <AlertDialogContent>
                       <AlertDialogHeader>

@@ -13,7 +13,7 @@ function SkeletonReloadIcon({
   return (
     <div
       className={cn(
-        "flex animate-pulse items-center justify-center rounded-md bg-zinc-200 bg-opacity-65", // Center icon
+        "flex animate-pulse items-center justify-center rounded-md bg-muted bg-opacity-65", // Center icon
         className,
       )}
       style={{ width, height }} // Apply default width and height
@@ -22,7 +22,7 @@ function SkeletonReloadIcon({
       <RotateCw
         size="24" // Customize size as needed
         color="currentColor" // Use current color or set desired color
-        className="mx-auto animate-spin text-muted-foreground" // Center and add spin animation
+        className="mx-auto animate-spin text-zinc-600" // Center and add spin animation
       />
     </div>
   );

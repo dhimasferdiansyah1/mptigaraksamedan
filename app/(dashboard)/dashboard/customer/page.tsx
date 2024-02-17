@@ -12,7 +12,7 @@ export default function Customer() {
           <Card className="my-4 overflow-x-auto p-4  lg:overflow-x-visible">
             <div className="flex w-auto items-center justify-end">
               <div className="flex w-full">
-                <h1 className="ml-4 text-left text-2xl font-bold">
+                <h1 className="vdeee3 ml-4 text-left font-bold lg:text-2xl">
                   Data Customer
                 </h1>
               </div>
