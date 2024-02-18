@@ -28,6 +28,7 @@ import { formatTimeAndDateIsoFetch } from "@/lib/utils";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function EditCustomerList({ customer }: { customer: Customer }) {
   const form = useForm<z.infer<typeof customerSchema>>({
@@ -76,110 +77,117 @@ export default function EditCustomerList({ customer }: { customer: Customer }) {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(handleUpdateCustomer)}
-        className="my-8 w-full sm:px-20 md:px-32 lg:max-w-3xl"
-      >
-        <Card className="space-y-4 p-8 dark:bg-zinc-900">
-          <Link href="/dashboard/customer">
-            <Button variant="secondary" className="flex gap-2">
-              <ChevronLeft className="h-5 w-5" />
-              Kembali
-            </Button>
-          </Link>
-          <CardHeader className="-m-6 mb-2">
-            <CardTitle>Edit Customer</CardTitle>
-            <CardDescription>
-              Silahkan mengubah data customer key account modern yang ingin
-              diubah.
-            </CardDescription>
-          </CardHeader>
-          <Suspense fallback={<p>Loading...</p>}>
-            <FormField
-              name="customer_name"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Nama Customer</FormLabel>
-                  <FormControl>
-                    <Input {...field} placeholder="Nama Customer..." />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              name="account"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Kode Account Customer</FormLabel>
-                  <FormControl>
-                    <Input {...field} placeholder="Kode Account Customer..." />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              name="alamat"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Alamat</FormLabel>
-                  <FormControl>
-                    <Input {...field} placeholder="Alamat..." />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              name="no_telp"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    Nomor telepon{" "}
-                    <span className="text-muted-foreground">(Optional)</span>
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      type="tel"
-                      placeholder="Nomor telepon..."
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              name="email"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    Email{" "}
-                    <span className="text-muted-foreground">(Optional)</span>
-                  </FormLabel>
-                  <FormControl>
-                    <Input {...field} type="email" placeholder="Email..." />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </Suspense>
-          <LoadingButton
-            loading={isSubmitting}
-            className="w-full"
-            type="submit"
-          >
-            Submit
-          </LoadingButton>
-        </Card>
-      </form>
+      {customer ? (
+        <form
+          onSubmit={form.handleSubmit(handleUpdateCustomer)}
+          className="my-8 w-full sm:px-20 md:px-32 lg:max-w-3xl"
+        >
+          <Card className="space-y-4 p-8 dark:bg-zinc-900">
+            <Link href="/dashboard/customer">
+              <Button variant="secondary" className="flex gap-2">
+                <ChevronLeft className="h-5 w-5" />
+                Kembali
+              </Button>
+            </Link>
+            <CardHeader className="-m-6 mb-2">
+              <CardTitle>Edit Customer</CardTitle>
+              <CardDescription>
+                Silahkan mengubah data customer key account modern yang ingin
+                diubah.
+              </CardDescription>
+            </CardHeader>
+            <Suspense fallback={<p>Loading...</p>}>
+              <FormField
+                name="customer_name"
+                control={form.control}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Nama Customer</FormLabel>
+                    <FormControl>
+                      <Input {...field} placeholder="Nama Customer..." />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                name="account"
+                control={form.control}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Kode Account Customer</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="Kode Account Customer..."
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                name="alamat"
+                control={form.control}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Alamat</FormLabel>
+                    <FormControl>
+                      <Input {...field} placeholder="Alamat..." />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                name="no_telp"
+                control={form.control}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      Nomor telepon{" "}
+                      <span className="text-muted-foreground">(Optional)</span>
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        type="tel"
+                        placeholder="Nomor telepon..."
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                name="email"
+                control={form.control}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>
+                      Email{" "}
+                      <span className="text-muted-foreground">(Optional)</span>
+                    </FormLabel>
+                    <FormControl>
+                      <Input {...field} type="email" placeholder="Email..." />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </Suspense>
+            <LoadingButton
+              loading={isSubmitting}
+              className="w-full"
+              type="submit"
+            >
+              Submit
+            </LoadingButton>
+          </Card>
+        </form>
+      ) : (
+        <Skeleton className="h-[200px] w-[200px]" />
+      )}
     </Form>
   );
 }
