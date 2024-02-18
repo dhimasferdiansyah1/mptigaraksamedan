@@ -3,12 +3,9 @@ import { useToast } from "@/components/ui/use-toast";
 import { formatTimeAndDateIsoFetch } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { deleteCustomer } from "@/app/(dashboard)/dashboard/customer/action";
-import { useState } from "react";
 
 export default function DeleteCustomerList({ id }: { id: string }) {
   const { toast } = useToast();
-
-  const [isOpen, setIsOpen] = useState(true);
 
   const handleDelete = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
@@ -26,7 +23,6 @@ export default function DeleteCustomerList({ id }: { id: string }) {
         variant: "destructive",
       });
     }
-    setIsOpen(false);
   };
 
   return (

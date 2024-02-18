@@ -13,6 +13,7 @@ import {
   X,
   ActivitySquare,
   Store,
+  HandCoins,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
@@ -71,6 +72,16 @@ const NavbarDashboard = () => {
       icon: <NotebookPen className="h-4 w-4" />,
       label: "Tanda terima tagihan",
     },
+    {
+      href: "/dashboard/pembayaran",
+      icon: <HandCoins className="h-4 w-4" />,
+      label: "Pembayaran",
+    },
+    {
+      href: "/dashboard/pelunasan",
+      icon: <NotebookPen className="h-4 w-4" />,
+      label: "Pelunasan",
+    },
   ];
 
   return (
@@ -101,8 +112,8 @@ const NavbarDashboard = () => {
                     href={route.href}
                     className={`text-sm transition-colors hover:text-primary ${
                       pathname === route.href
-                        ? " text-black dark:text-white"
-                        : "font-medium text-muted-foreground"
+                        ? " font-medium text-black dark:text-white"
+                        : " font-medium text-muted-foreground"
                     }`}
                   >
                     {route.label}
@@ -234,7 +245,7 @@ const NavbarDashboard = () => {
               href={route.href}
               className={`flex items-center gap-1 text-sm transition-colors hover:text-primary ${
                 pathname === route.href
-                  ? " text-black dark:text-white"
+                  ? " font-medium text-black dark:text-white"
                   : "font-medium text-muted-foreground"
               }`}
             >

@@ -33,7 +33,7 @@ const numericPurchaseOrderRequiredString = z
   .string()
   .min(1, "Nomor purchase order tidak boleh kosong")
   .regex(/^\d+$/, "Harus berupa angka");
-
+  
 export const purchaseOrderSchema = z.object({
   customer_id: z
     .string()
@@ -55,3 +55,13 @@ export const purchaseOrderSchema = z.object({
   status_serah: z.string().min(1, "Status serah dokumen tidak boleh kosong"),
   user: z.string().min(1),
 });
+
+//EditPurchaseOrderSchema
+export const editPurchaseOrderSchema = z.object({
+  no_po: numericPurchaseOrderRequiredString,
+  tgl_po: z.string({
+    required_error: "Tanggal purchase order tidak boleh kosong",
+  }),
+  foto_po: z.string().optional(),
+});
+

@@ -3,7 +3,7 @@ import prisma from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-export async function getAllCustomer() {
+export async function getAllCustomer(id?: string) {
   const response = await prisma.customer.findMany({
     orderBy: {
       createdAt: "desc",
@@ -23,12 +23,11 @@ export async function deleteCustomer(id: string) {
     });
     // Delete all photos related to the purchase orders
     // Revalidate the data on the customer page
+    revalidatePath("/");
   } catch (error) {
     console.error(error);
     throw error;
   }
-  revalidatePath("/dashboard/customer");
-  redirect("/dashboard/customer");
 }
 
 export async function getCustomerUniqe(id: string) {

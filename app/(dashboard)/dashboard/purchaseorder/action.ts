@@ -53,6 +53,6 @@ export async function updatePurchaseOrder(id: string, formData: FormData) {
   } catch (error) {
     console.error(error);
   }
-  revalidatePath("/dashboard/customer");
-  redirect("/dashboard/customer");
+  revalidatePath("/dashboard/purchaseorder");
+  redirect("/dashboard/purchaseorder");
 }
