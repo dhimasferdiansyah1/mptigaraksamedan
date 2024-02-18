@@ -184,9 +184,7 @@ export default function FormSubmitPurchaseOrder() {
                         selected={
                           field.value ? new Date(field.value) : undefined
                         }
-                        onDayClick={(date) =>
-                          field.onChange(date.toISOString())
-                        }
+                        onSelect={(date) => field.onChange(date?.toISOString())}
                         initialFocus
                       />
                     </PopoverContent>
