@@ -3,10 +3,10 @@
 import prisma from "@/lib/db";
 import { revalidatePath } from "next/cache";
 
-export async function getAllData(id?: string) {
+export async function getAllData() {
   const response = await prisma.purchaseOrder.findMany({
     where: {
-      id: {
+      customer_id: {
         not: "",
       },
     },

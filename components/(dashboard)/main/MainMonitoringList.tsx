@@ -1,4 +1,3 @@
-export const dynamic = "force-dynamic";
 import { getAllData } from "@/actions/actionDashboard";
 import { Card } from "../../ui/card";
 import { Button } from "../../ui/button";
@@ -163,7 +162,7 @@ export const MainMonitoringList = async () => {
                               <p>{status.status_serah}</p>
                               <p>
                                 {formatTimeAndDateIsoFetch(
-                                  status.updatedAt.toString(),
+                                  status.updatedAt.toISOString(),
                                 )}
                               </p>
                               <p>{status.user}</p>

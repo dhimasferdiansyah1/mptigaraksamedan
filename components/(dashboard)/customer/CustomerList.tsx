@@ -1,4 +1,3 @@
-export const dynamic = "force-dynamic";
 import { getAllCustomer } from "@/app/(dashboard)/dashboard/customer/action";
 import {
   Table,
@@ -28,8 +27,8 @@ import { Button } from "@/components/ui/button";
 import { Suspense } from "react";
 import { SkeletonReloadIcon } from "@/components/ui/skeletonreloadicon";
 
-export default async function CustomerList({ id }: { id?: string }) {
-  const customerList = await getAllCustomer(id);
+export default async function CustomerList() {
+  const customerList = await getAllCustomer();
   return (
     <Table className="mx-auto mt-4 w-[1200px] rounded-md lg:w-full">
       <TableCaption>List data customer key account modern</TableCaption>

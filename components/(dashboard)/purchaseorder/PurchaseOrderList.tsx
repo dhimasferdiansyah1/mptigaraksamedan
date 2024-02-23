@@ -1,4 +1,3 @@
-export const dynamic = "force-dynamic";
 import { getAllPurchaseOrder } from "@/app/(dashboard)/dashboard/purchaseorder/action";
 import {
   Table,

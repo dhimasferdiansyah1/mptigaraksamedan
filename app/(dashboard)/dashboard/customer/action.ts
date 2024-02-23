@@ -3,7 +3,7 @@ import prisma from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-export async function getAllCustomer(id?: string) {
+export async function getAllCustomer() {
   const response = await prisma.customer.findMany({
     orderBy: {
       createdAt: "desc",
