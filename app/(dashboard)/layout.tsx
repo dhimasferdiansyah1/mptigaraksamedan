@@ -22,7 +22,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body className={`${inter.className}`}>
         <ThemeProvider
           attribute="class"

@@ -47,14 +47,12 @@ export async function createPurchaseOrder(formData: FormData) {
         faktur: {
           create: {
             id: idFakturFormat,
-            tgl_fk: undefined,
           },
         },
 
         faktur_pajak: {
           create: {
             id: idFakturPajakFormat,
-            tgl_fkp: undefined,
           },
         },
 
@@ -80,5 +78,5 @@ export async function createPurchaseOrder(formData: FormData) {
   }
 
   revalidatePath("/");
-  redirect("/dashboard");
+  redirect("/dashboard/main");
 }
