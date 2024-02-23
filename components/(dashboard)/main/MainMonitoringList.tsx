@@ -25,8 +25,8 @@ import { SkeletonReloadIcon } from "../../ui/skeletonreloadicon";
 import { Skeleton } from "../../ui/skeleton";
 import Link from "next/link";
 
-export const MainMonitoringList = async ({ id }: { id?: string }) => {
-  const data = await getAllData(id);
+export const MainMonitoringList = async () => {
+  const data = await getAllData();
 
   return (
     <Suspense fallback={<SkeletonReloadIcon className="h-10 w-10" />}>

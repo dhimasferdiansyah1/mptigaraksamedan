@@ -13,7 +13,9 @@ export async function getAllData(id?: string) {
     include: {
       customer: true,
       faktur: true,
+      faktur_pajak: true,
       delivery_note: true,
+      tandaterimatagihan: true,
       statusserahdokumen: true,
     },
     orderBy: {
