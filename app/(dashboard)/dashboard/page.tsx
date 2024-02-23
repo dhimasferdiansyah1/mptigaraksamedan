@@ -50,7 +50,7 @@ const menu = [
   },
 ];
 
-export default function Dashboard() {
+export default function DashboardPage() {
   return (
     <div className="mx-auto my-12 max-w-7xl">
       <div className="container mx-auto px-0">

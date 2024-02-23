@@ -2,7 +2,7 @@ import FormSubmitPurchaseOrder from "@/components/(dashboard)/purchaseorder/tamb
 import { Skeleton } from "@/components/ui/skeleton";
 import { Suspense } from "react";
 
-export default function TambahPurchaseOrder() {
+export default function TambahPurchaseOrderPage() {
   return (
     <div className="mx-auto max-w-7xl">
       <div className="container mx-auto">

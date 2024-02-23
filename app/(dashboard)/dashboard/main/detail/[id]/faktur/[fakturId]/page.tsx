@@ -1,18 +1,19 @@
-import { notFound } from "next/navigation";
-import { getCustomerUniqe } from "../../action";
-import EditCustomerList from "@/components/(dashboard)/customer/edit-customer/EditCustomerList";
 import { Suspense } from "react";
+import { getFakturDetail } from "./action";
 import { Skeleton } from "@/components/ui/skeleton";
+import TambahFaktur from "@/components/(dashboard)/detail/faktur/TambahFaktur";
+import { getAllDetail, getFakturUniqe } from "../../../../action";
+import { notFound } from "next/navigation";
 
-export default async function updateCustomerPage({
+export default async function FakturDetail({
   params,
 }: {
-  params: { id: string };
+  params: { fakturId: string };
 }) {
-  const id = params.id;
-  const customer = await getCustomerUniqe(id);
+  const fakturId = params.fakturId;
+  const faktur = await getFakturDetail(fakturId);
 
-  if (!customer) {
+  if (!faktur) {
     notFound();
   }
   return (
@@ -24,7 +25,7 @@ export default async function updateCustomerPage({
               <Skeleton className="my-8 h-[400px] w-[200px] lg:h-[600px] lg:w-[500px]" />
             }
           >
-            <EditCustomerList customer={customer} />
+            <TambahFaktur fakturId={faktur} />
           </Suspense>
         </div>
       </div>

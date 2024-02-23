@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
-export default function Home() {
+export default function HomePage() {
   return (
     <main className="mx-auto my-12 max-w-7xl">
       <div className="container mx-auto">
@@ -13,8 +13,11 @@ export default function Home() {
             height={100}
             className="h-auto w-auto"
           />
-          <div className="text-center text-2xl font-extrabold sm:w-2/4 lg:text-5xl">
-            <h1>Selamat Datang di Demo Monitoring Piutang</h1>
+          <span className="rounded-md border border-yellow-300 bg-yellow-200 px-2 py-1 text-sm text-yellow-900 opacity-50">
+            Versi Beta
+          </span>
+          <div className=" text-center text-2xl font-extrabold sm:w-2/4 lg:text-5xl">
+            <h1>Selamat Datang di Monitoring Piutang</h1>
           </div>
           <div className="text-md text-center font-normal text-muted-foreground sm:w-2/4 lg:text-2xl">
             <p>Dapatkan informasi terkini mengenai progres piutang</p>

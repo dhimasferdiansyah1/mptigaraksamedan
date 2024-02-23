@@ -2,7 +2,7 @@
 
 import prisma from "@/lib/db";
 import { purchaseOrderSchema } from "@/lib/validations";
-import { uuidModified } from "@/lib/utils";
+import { uuidModified, uuidModifiedShort } from "@/lib/utils";
 import fs from "fs";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -15,7 +15,18 @@ export async function createPurchaseOrder(formData: FormData) {
 
   const nomorPurchaseOrder = no_po;
   const nomorPurchaseOrderWithoutExt = nomorPurchaseOrder;
+
   const idFormat = uuidModified() + "-" + nomorPurchaseOrderWithoutExt;
+  const idDeliveryNoteFormat =
+    nomorPurchaseOrderWithoutExt + "-" + "dn" + uuidModifiedShort();
+  const idFakturFormat =
+    nomorPurchaseOrderWithoutExt + "-" + "fk" + uuidModifiedShort();
+  const idFakturPajakFormat =
+    nomorPurchaseOrderWithoutExt + "-" + "fkp" + uuidModifiedShort();
+  const idTandaTerimaTagihanFormat =
+    nomorPurchaseOrderWithoutExt + "-" + "ttt" + uuidModifiedShort();
+  const idStatusSerahDokumenFormat =
+    nomorPurchaseOrderWithoutExt + "-" + "ssd" + uuidModifiedShort();
 
   try {
     await prisma.purchaseOrder.create({
@@ -27,10 +38,36 @@ export async function createPurchaseOrder(formData: FormData) {
         foto_po, // Convert File to string
         status_po,
 
-        // Menambahkan data status serah dokumen
+        delivery_note: {
+          create: {
+            id: idDeliveryNoteFormat,
+            no_dn: "",
+          },
+        },
+
+        faktur: {
+          create: {
+            id: idFakturFormat,
+            tgl_fk: undefined,
+          },
+        },
+
+        faktur_pajak: {
+          create: {
+            id: idFakturPajakFormat,
+            tgl_fkp: undefined,
+          },
+        },
+
+        tandaterimatagihan: {
+          create: {
+            id: idTandaTerimaTagihanFormat,
+          },
+        },
+
         statusserahdokumen: {
           create: {
-            id: idFormat,
+            id: idStatusSerahDokumenFormat,
             status_serah: status_serah,
             user: "Admin",
             // Add other required fields from StatusSerahDokumen model

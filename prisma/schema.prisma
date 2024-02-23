@@ -49,7 +49,7 @@ model PurchaseOrder {
 
 model DeliveryNote {
   id        String   @id @default(uuid())
-  no_dn     String
+  no_dn     String?
   foto1_dn  String?
   foto2_dn  String?
   createdAt DateTime @default(now())
@@ -62,15 +62,15 @@ model DeliveryNote {
 }
 
 model Faktur {
-  id        String   @id @default(uuid())
-  no_fk     String
-  tgl_fk    DateTime @default(now())
-  tgl_jt    DateTime
-  nilai     String
+  id        String    @id @default(uuid())
+  no_fk     String?
+  tgl_fk    DateTime?
+  tgl_jt    DateTime?
+  nilai     String?
   foto1_fk  String?
   foto2_fk  String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 
   purchase_order PurchaseOrder @relation(fields: [po_id], references: [id], onDelete: Cascade)
   po_id          String        @unique
@@ -79,12 +79,12 @@ model Faktur {
 }
 
 model FakturPajak {
-  id        String   @id @default(uuid())
-  no_fkp    String
-  tgl_fkp   DateTime @default(now())
+  id        String    @id @default(uuid())
+  no_fkp    String?
+  tgl_fkp   DateTime?
   foto_fkp  String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 
   purchase_order PurchaseOrder @relation(fields: [po_id], references: [id], onDelete: Cascade)
   po_id          String        @unique
@@ -93,13 +93,13 @@ model FakturPajak {
 }
 
 model TandaTerimaTagihan {
-  id           String                 @id @default(uuid())
-  no_penagihan String
-  status       EnumTandaTerimaTagihan
-  tgl_jt       DateTime
+  id           String                  @id @default(uuid())
+  no_penagihan String?
+  status       EnumTandaTerimaTagihan?
+  tgl_jt       DateTime?
   foto_ttt     String?
-  createdAt    DateTime               @default(now())
-  updatedAt    DateTime               @updatedAt
+  createdAt    DateTime                @default(now())
+  updatedAt    DateTime                @updatedAt
 
   purchase_order PurchaseOrder @relation(fields: [po_id], references: [id], onDelete: Cascade)
   po_id          String        @unique
@@ -114,8 +114,8 @@ enum EnumTandaTerimaTagihan {
 
 model StatusSerahDokumen {
   id           String   @id @default(uuid())
-  status_serah String
-  user         String
+  status_serah String?
+  user         String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 

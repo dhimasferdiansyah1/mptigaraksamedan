@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
 import { getPurchaseOrderUniqe } from "../../action";
-import EditCustomerList from "@/components/(dashboard)/customer/EditCustomerList";
+import EditCustomerList from "@/components/(dashboard)/customer/edit-customer/EditCustomerList";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import EditPurchaseOrderList from "@/components/(dashboard)/purchaseorder/EditPurchaseOrderList";
+import EditPurchaseOrderList from "@/components/(dashboard)/purchaseorder/edit-purchaseorder/EditPurchaseOrderList";
 
 export default async function updateCustomerPage({
   params,

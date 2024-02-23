@@ -30,7 +30,7 @@ const image = [
   },
 ];
 
-export default function page() {
+export default function AboutPage() {
   return (
     <div className="mx-auto mb-24 mt-10 max-w-7xl sm:mt-32">
       <div className="container mx-auto">

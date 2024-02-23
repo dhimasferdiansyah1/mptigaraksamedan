@@ -73,7 +73,7 @@ export default async function PurchaseOrderList() {
               <TableCell className="px-4 py-2">
                 <Dialog>
                   <DialogTrigger className="items center flex gap-2 rounded-md bg-muted p-2 hover:bg-zinc-200 dark:hover:bg-zinc-700/65">
-                    <ImageIcon className="h-4 w-4 cursor-pointer text-primary" />
+                    <ImageIcon className="h-auto w-4 cursor-pointer text-primary" />
                     Lihat
                   </DialogTrigger>
                   <DialogContent>
@@ -89,7 +89,7 @@ export default async function PurchaseOrderList() {
                               alt={`Foto purchase order ${item.no_po}`}
                               width={1000}
                               height={1000}
-                              className="mb-4 h-auto w-auto"
+                              className="mb-4 h-[550px] w-auto"
                             />
                             <a
                               href={item.foto_po}

@@ -1,7 +1,6 @@
 "use server";
 
 import prisma from "@/lib/db";
-import fs from "fs";
 import { revalidatePath } from "next/cache";
 
 export async function getAllData(id?: string) {

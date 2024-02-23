@@ -11,7 +11,7 @@ const inter = Inter({ subsets: ["latin"], weight: "400", display: "swap" });
 export const metadata: Metadata = {
   title: {
     default: "Monitoring Piutang",
-    template: " %s | Monitoring Piutang",
+    template: "Monitoring Piutang",
   },
   description: "PT. Tigaraksa Satria, Tbk Cabang Medan",
 };
@@ -22,7 +22,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className}`}>
         <ThemeProvider
           attribute="class"

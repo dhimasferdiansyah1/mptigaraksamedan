@@ -6,14 +6,14 @@ import { usePathname } from "next/navigation";
 import {
   AlignRight,
   ChevronDown,
-  NotebookPen,
-  Receipt,
   ShoppingCart,
-  Truck,
   X,
   ActivitySquare,
   Store,
-  HandCoins,
+  BarChartHorizontal,
+  AlertTriangle,
+  BadgeCheck,
+  HelpCircle,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
@@ -36,6 +36,18 @@ const NavbarDashboard = () => {
     { href: "/dashboard", label: "Dashboard" },
   ];
 
+  const extraRoutes = [
+    {
+      icon: <HelpCircle className="h-4 w-4" />,
+      href: "/dashboard/help",
+      label: "Help",
+    },
+    {
+      href: "/dashboard/karyawan",
+      label: "Karyawan",
+    },
+  ];
+
   const secondaryRoutes = [
     {
       href: "/dashboard/main",
@@ -53,34 +65,22 @@ const NavbarDashboard = () => {
       label: "Purchase order",
     },
     {
-      href: "/dashboard/deliverynote",
-      icon: <Truck className="h-4 w-4" />,
-      label: "Delivery note",
+      href: "/dashboard/statusserah",
+      icon: <BarChartHorizontal className="h-4 w-4" />,
+      label: "Status Serah",
+    },
+  ];
+
+  const thirdRoutes = [
+    {
+      href: "dashboard/jatuhtempo",
+      icon: <AlertTriangle className="h-4 w-4" />,
+      label: "Jatuh tempo",
     },
     {
-      href: "/dashboard/faktur",
-      icon: <Receipt className="h-4 w-4" />,
-      label: "Faktur",
-    },
-    {
-      href: "/dashboard/fakturpajak",
-      icon: <Receipt className="h-4 w-4" />,
-      label: "Faktur pajak",
-    },
-    {
-      href: "/dashboard/tandaterimatagihan",
-      icon: <NotebookPen className="h-4 w-4" />,
-      label: "Tanda terima tagihan",
-    },
-    {
-      href: "/dashboard/pembayaran",
-      icon: <HandCoins className="h-4 w-4" />,
-      label: "Pembayaran",
-    },
-    {
-      href: "/dashboard/pelunasan",
-      icon: <NotebookPen className="h-4 w-4" />,
-      label: "Pelunasan",
+      href: "dashboard/piutangselesai",
+      icon: <BadgeCheck className="h-4 w-4" />,
+      label: "Piutang selesai",
     },
   ];
 
@@ -106,6 +106,22 @@ const NavbarDashboard = () => {
                 </Link>
               </div>
               <div className="hidden items-center gap-6 lg:flex">
+                <div className="flex gap-6">
+                  {extraRoutes.map((route) => (
+                    <Link
+                      key={route.href}
+                      href={route.href}
+                      className={`flex items-center text-sm transition-colors hover:text-primary ${
+                        pathname === route.href
+                          ? " font-medium text-black dark:text-white"
+                          : " font-medium text-muted-foreground"
+                      }`}
+                    >
+                      {route.label} {route.icon}
+                    </Link>
+                  ))}
+                </div>
+                <div className=" h-5 border"></div>
                 {mainRoutes.map((route) => (
                   <Link
                     key={route.href}
@@ -122,7 +138,7 @@ const NavbarDashboard = () => {
                 <a
                   href="https://www.tigaraksa.co.id/"
                   target="_blank"
-                  className="text-sm text-muted-foreground transition-colors hover:text-primary"
+                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
                 >
                   Perusahaan
                 </a>
@@ -178,6 +194,7 @@ const NavbarDashboard = () => {
                         width={20}
                         height={20}
                         className="h-auto w-auto"
+                        priority
                       />
                       Monitoring Piutang
                     </Link>
@@ -237,9 +254,26 @@ const NavbarDashboard = () => {
           </div>
         )}
       </AnimatePresence>
-      <div className="hidden items-center justify-center border-b  p-5 lg:flex ">
+      <div className="hidden items-center justify-center gap-8 border-b p-5 lg:flex">
         <div className="hidden items-center gap-10 lg:flex">
           {secondaryRoutes.map((route) => (
+            <Link
+              key={route.href}
+              href={route.href}
+              className={`flex items-center gap-1 text-sm transition-colors hover:text-primary ${
+                pathname === route.href
+                  ? " font-medium text-black dark:text-white"
+                  : "font-medium text-muted-foreground"
+              }`}
+            >
+              {route.icon}
+              {route.label}
+            </Link>
+          ))}
+        </div>
+        <div className="h-5 border"></div>
+        <div className="hidden items-center gap-10 lg:flex">
+          {thirdRoutes.map((route) => (
             <Link
               key={route.href}
               href={route.href}

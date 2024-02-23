@@ -1,8 +1,8 @@
 "use client";
 import { deletePurchaseOrder } from "@/actions/actionDashboard";
-import { useToast } from "../ui/use-toast";
+import { useToast } from "../../ui/use-toast";
 import { formatTimeAndDateIsoFetch } from "@/lib/utils";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 
 export default function DeletePurchaseOrderCard({ id }: { id: string }) {
   const { toast } = useToast();

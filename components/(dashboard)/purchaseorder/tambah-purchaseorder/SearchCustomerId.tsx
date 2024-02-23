@@ -63,7 +63,9 @@ export default forwardRef<HTMLInputElement, searchCustomerIdProps>(
           onChange={handleSearch}
           onClick={() => setIsListOpen(true)} // Open the list when clicking the input
           className={`w-full border p-2 ${
-            selectedOption === customersSearchInput ? "bg-zinc-200" : ""
+            selectedOption === customersSearchInput
+              ? "bg-zinc-200 dark:bg-zinc-900"
+              : ""
           }`}
         />
         {isListOpen && filteredCustomers.length > 0 && (
@@ -75,7 +77,9 @@ export default forwardRef<HTMLInputElement, searchCustomerIdProps>(
                     key={customer.id}
                     onClick={() => handleSelectCustomer(customer.id)}
                     className={`cursor-pointer p-2 ${
-                      customer.id === selectedOption ? "bg-zinc-200" : ""
+                      customer.id === selectedOption
+                        ? "bg-zinc-200 dark:bg-zinc-900"
+                        : ""
                     }`}
                   >
                     {customer.customer_name} ({customer.account}) -{" "}

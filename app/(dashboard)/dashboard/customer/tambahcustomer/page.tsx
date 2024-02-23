@@ -2,7 +2,7 @@ import FormSubmitCustomer from "@/components/(dashboard)/customer/tambah-custome
 import { Skeleton } from "@/components/ui/skeleton";
 import { Suspense } from "react";
 
-export default function TambahCustomer() {
+export default function TambahCustomerPage() {
   return (
     <div className="mx-auto max-w-7xl">
       <div className="container mx-auto">

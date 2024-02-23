@@ -1,9 +1,9 @@
 import { getAllData } from "@/actions/actionDashboard";
-import { Card } from "../ui/card";
-import { Button } from "../ui/button";
+import { Card } from "../../ui/card";
+import { Button } from "../../ui/button";
 import { ChevronRight, Info, SquarePen, Store, Trash2 } from "lucide-react";
 import { formatDateIsoFetch, formatTimeAndDateIsoFetch } from "@/lib/utils";
-import DeletePurchaseOrderCard from "./DeletePurchaseOrderCard";
+import DeletePurchaseOrderCard from "./DeleteMainMonitoringList";
 import {
   Popover,
   PopoverContent,
@@ -20,10 +20,11 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Suspense } from "react";
-import { SkeletonReloadIcon } from "../ui/skeletonreloadicon";
-import { Skeleton } from "../ui/skeleton";
+import { SkeletonReloadIcon } from "../../ui/skeletonreloadicon";
+import { Skeleton } from "../../ui/skeleton";
+import Link from "next/link";
 
-export const PurchaseOrderCard = async ({ id }: { id?: string }) => {
+export const MainMonitoringList = async ({ id }: { id?: string }) => {
   const data = await getAllData(id);
 
   return (
@@ -32,10 +33,10 @@ export const PurchaseOrderCard = async ({ id }: { id?: string }) => {
         {data.length > 0 ? (
           data.map((po) => (
             <Suspense
-              fallback={<SkeletonReloadIcon className="h-10 w-10" />}
+              fallback={<Skeleton className="lg:h-[322px] lg:w-[402px]" />}
               key={po.id}
             >
-              <Card className="flex flex-col p-4 dark:bg-zinc-900">
+              <Card className="flex flex-col p-4 duration-200 hover:shadow hover:duration-200 dark:bg-zinc-900 dark:hover:shadow-zinc-800">
                 <div className="flex-col">
                   <div className="flex flex-col gap-1">
                     <div className="lg: mb-3 flex flex-col justify-between gap-2 lg:w-[370px] lg:flex-row lg:gap-0">
@@ -68,7 +69,7 @@ export const PurchaseOrderCard = async ({ id }: { id?: string }) => {
                                   <span>:</span>
                                   <div>
                                     {po.customer?.no_telp || (
-                                      <p className="text-destructive">
+                                      <p className="text-destructive dark:text-red-400">
                                         Tidak memiliki
                                       </p>
                                     )}
@@ -80,7 +81,7 @@ export const PurchaseOrderCard = async ({ id }: { id?: string }) => {
                                   <span>:</span>
                                   <div>
                                     {po.customer?.email || (
-                                      <p className="text-destructive">
+                                      <p className="text-destructive dark:text-red-400">
                                         Tidak memiliki
                                       </p>
                                     )}
@@ -125,18 +126,28 @@ export const PurchaseOrderCard = async ({ id }: { id?: string }) => {
                         </div>
 
                         <div className="flex gap-2">
-                          <p className="w-24">Tanggal PO</p>
+                          <p className="w-24">Tanggal FK</p>
                           <span>:</span>
-                          <p>{formatDateIsoFetch(po.tgl_po.toString())}</p>
+                          <div>
+                            {formatDateIsoFetch(
+                              po.faktur?.tgl_fk?.toISOString() ?? "",
+                            ) || (
+                              <p className="text-destructive dark:text-red-400">
+                                Tidak memiliki
+                              </p>
+                            )}
+                          </div>
                         </div>
 
                         <div className="flex gap-2">
                           <p className="w-24">Tanggal JT</p>
                           <span>:</span>
                           <div>
-                            {po.faktur?.tgl_jt.toString() ?? (
+                            {formatDateIsoFetch(
+                              po.faktur?.tgl_jt?.toISOString() ?? "",
+                            ) || (
                               <p className="text-destructive dark:text-red-400">
-                                Belum memiliki
+                                Tidak memiliki
                               </p>
                             )}
                           </div>
@@ -163,7 +174,6 @@ export const PurchaseOrderCard = async ({ id }: { id?: string }) => {
                   </div>
 
                   <div className="mt-4 flex items-center justify-end gap-4">
-                    <SquarePen className="h-8 w-8 cursor-pointer text-primary" />
                     <AlertDialog>
                       <AlertDialogTrigger name="delete" aria-label="delete">
                         <Trash2 className="h-8 w-8 cursor-pointer text-destructive transition-colors duration-300 ease-in-out hover:text-red-400 dark:text-red-400 dark:hover:text-red-300" />
@@ -192,9 +202,11 @@ export const PurchaseOrderCard = async ({ id }: { id?: string }) => {
                         </AlertDialogFooter>
                       </AlertDialogContent>
                     </AlertDialog>
-                    <Button variant="secondary">
-                      Detail <ChevronRight className="h-5 w-5" />
-                    </Button>
+                    <Link href={`/dashboard/main/detail/${po.id}`}>
+                      <Button variant="secondary">
+                        Detail <ChevronRight className="h-5 w-5" />
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               </Card>

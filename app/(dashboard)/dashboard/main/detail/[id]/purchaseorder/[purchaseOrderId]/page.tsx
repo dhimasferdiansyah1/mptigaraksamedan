@@ -1,20 +1,21 @@
+import React, { Suspense } from "react";
+import { getPurchaseOrderUniqe } from "../../../../action";
 import { notFound } from "next/navigation";
-import { getCustomerUniqe } from "../../action";
-import EditCustomerList from "@/components/(dashboard)/customer/edit-customer/EditCustomerList";
-import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import TambahPurchaseOrder from "@/components/(dashboard)/detail/purchaseorder/TambahPurchaseOrder";
 
-export default async function updateCustomerPage({
+export default async function purchaseOrderDetail({
   params,
 }: {
-  params: { id: string };
+  params: { purchaseOrderId: string };
 }) {
-  const id = params.id;
-  const customer = await getCustomerUniqe(id);
+  const id = params.purchaseOrderId;
+  const purchaseOrder = await getPurchaseOrderUniqe(id);
 
-  if (!customer) {
+  if (!purchaseOrder) {
     notFound();
   }
+
   return (
     <div className="mx-auto max-w-7xl">
       <div className="container mx-auto">
@@ -24,7 +25,7 @@ export default async function updateCustomerPage({
               <Skeleton className="my-8 h-[400px] w-[200px] lg:h-[600px] lg:w-[500px]" />
             }
           >
-            <EditCustomerList customer={customer} />
+            <TambahPurchaseOrder idPurchaseOrder={purchaseOrder} />
           </Suspense>
         </div>
       </div>

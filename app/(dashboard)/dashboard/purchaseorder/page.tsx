@@ -4,7 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Plus } from "lucide-react";
 import Link from "next/link";
 
-export default function PurchaseOrder() {
+export default function PurchaseOrderPage() {
   return (
     <div className="mx-auto max-w-7xl">
       <div className="container mx-auto px-0">
