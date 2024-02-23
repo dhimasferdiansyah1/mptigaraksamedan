@@ -80,6 +80,6 @@ export async function createPurchaseOrder(formData: FormData) {
     throw error;
   }
 
-  revalidatePath("/dashboard/purchaseorder");
-  redirect("/dashboard/purchaseorder");
+  revalidatePath("/dashboard");
+  redirect("/dashboard");
 }
