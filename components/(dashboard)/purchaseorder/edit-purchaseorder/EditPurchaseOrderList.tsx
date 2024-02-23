@@ -49,7 +49,7 @@ export default function EditPurchaseOrderList({
     resolver: zodResolver(editPurchaseOrderSchema),
     defaultValues: {
       no_po: purchaseOrder.no_po,
-      tgl_po: purchaseOrder.tgl_po.toDateString(),
+      tgl_po: purchaseOrder.tgl_po.toISOString(),
       foto_po: purchaseOrder.foto_po || undefined,
     },
   });

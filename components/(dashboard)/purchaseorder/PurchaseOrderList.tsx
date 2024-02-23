@@ -68,7 +68,7 @@ export default async function PurchaseOrderList() {
                 aria-label="alamat customer"
                 className="px-4 py-2 sm:table-cell"
               >
-                {formatDateIsoFetch(item.tgl_po.toDateString())}
+                {formatDateIsoFetch(item.tgl_po.toISOString())}
               </TableCell>
               <TableCell className="px-4 py-2">{item.status_po}</TableCell>
               <TableCell className="px-4 py-2">
