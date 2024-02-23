@@ -41,7 +41,6 @@ export async function createPurchaseOrder(formData: FormData) {
         delivery_note: {
           create: {
             id: idDeliveryNoteFormat,
-            no_dn: "",
           },
         },
 
@@ -80,6 +79,6 @@ export async function createPurchaseOrder(formData: FormData) {
     throw error;
   }
 
-  revalidatePath("/dashboard");
+  revalidatePath("/");
   redirect("/dashboard");
 }
