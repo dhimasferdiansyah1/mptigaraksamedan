@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { getAllData } from "@/actions/actionDashboard";
 import { Card } from "../../ui/card";
 import { Button } from "../../ui/button";

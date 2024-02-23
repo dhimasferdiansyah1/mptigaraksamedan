@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { getAllCustomer } from "@/app/(dashboard)/dashboard/customer/action";
 import {
   Table,
